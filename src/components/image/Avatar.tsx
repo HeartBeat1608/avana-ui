@@ -6,7 +6,7 @@ interface AvatarImageProps extends ComponentProps<typeof Image> {
   showBorder?: boolean
 }
 
-export function NextAvatar ({
+export function NextAvatar({
   src,
   showBorder,
   alt,
@@ -20,13 +20,13 @@ export function NextAvatar ({
       {...props}
       {...(showBorder
         ? {
-            border: '2px',
-            borderColor: colorMode === 'dark' ? 'navy.700' : 'white'
-          }
+          border: '2px',
+          borderColor: colorMode === 'dark' ? 'navy.700' : 'white'
+        }
         : {})}
       alt={alt}
       src={src}
-      style={{ ...style, borderRadius: '50%' }}
+      style={{ borderRadius: '50%', ...style, }}
     />
   )
 }

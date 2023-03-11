@@ -11,16 +11,20 @@ export const columnsDataDevelopment: Columns = [
     accessor: "name",
   },
   {
-    Header: "TECH",
-    accessor: "tech",
+    Header: "TICKET",
+    accessor: "ticket",
   },
   {
     Header: "DATE",
     accessor: "date",
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "LAST UPDATED",
+    accessor: "last_updated",
   },
 ];
 

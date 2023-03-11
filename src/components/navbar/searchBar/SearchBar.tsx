@@ -6,7 +6,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
-export function SearchBar (props: {
+export function SearchBar(props: {
   variant?: string
   background?: string
   children?: JSX.Element
@@ -33,7 +33,7 @@ export function SearchBar (props: {
         <IconButton
           aria-label='search'
           bg='inherit'
-          borderRadius='inherit'
+          borderRadius='full'
           _active={{
             bg: 'inherit',
             transform: 'none',

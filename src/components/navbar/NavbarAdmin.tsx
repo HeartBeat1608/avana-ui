@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react'
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin'
 import { isWindowAvailable } from 'utils/navigation'
 
-export default function AdminNavbar (props: {
+export default function AdminNavbar(props: {
   secondary: boolean
   message: string | boolean
   brandText: string
@@ -154,7 +154,7 @@ export default function AdminNavbar (props: {
             fixed={props.fixed}
           />
         </Box>
-      </Flex> 
+      </Flex>
     </Box>
   )
 }

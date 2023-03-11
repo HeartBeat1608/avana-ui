@@ -1,7 +1,6 @@
 /* eslint-disable */
 import {
   Flex,
-  Progress,
   Table,
   Tbody,
   Td,
@@ -13,8 +12,6 @@ import {
 } from '@chakra-ui/react'
 // Custom components
 import Card from 'components/card/Card'
-import { AndroidLogo, AppleLogo, WindowsLogo } from 'components/icons/Icons'
-import Menu from 'components/menu/MainMenu'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
   useGlobalFilter,
@@ -24,8 +21,8 @@ import {
 } from 'react-table'
 import { TableProps } from 'views/admin/default/variables/columnsData'
 
-export default function DevelopmentTable (props: TableProps) {
-  const { columnsData, tableData } = props
+export default function DevelopmentTable(props: TableProps & { onCellClick: (id: number) => void }) {
+  const { columnsData, tableData, onCellClick } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -53,6 +50,9 @@ export default function DevelopmentTable (props: TableProps) {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const iconColor = useColorModeValue('secondaryGray.500', 'white')
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
+  const statusColorResolved = useColorModeValue('green.400', 'green.500')
+  const statusColorActive = useColorModeValue('secondaryGray.800', 'secondaryGray.200')
+  const statusColorPending = useColorModeValue('yellow.400', 'yellow.500')
 
   const [isMounted, setIsMounted] = useState(false)
 
@@ -79,7 +79,6 @@ export default function DevelopmentTable (props: TableProps) {
         >
           Development Table
         </Text>
-        <Menu />
       </Flex>
       <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
         <Thead>
@@ -114,46 +113,9 @@ export default function DevelopmentTable (props: TableProps) {
                   let data
                   if (cell.column.Header === 'NAME') {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Text color={textColor} fontSize='sm' fontWeight='700' onClick={() => { props.onCellClick(+row.id) }} cursor="pointer">
                         {cell.value}
                       </Text>
-                    )
-                  } else if (cell.column.Header === 'TECH') {
-                    data = (
-                      <Flex align='center'>
-                        {cell.value.map((item: string, key: number) => {
-                          if (item === 'apple') {
-                            return (
-                              <AppleLogo
-                                key={key}
-                                color={iconColor}
-                                me='16px'
-                                h='18px'
-                                w='15px'
-                              />
-                            )
-                          } else if (item === 'android') {
-                            return (
-                              <AndroidLogo
-                                key={key}
-                                color={iconColor}
-                                me='16px'
-                                h='18px'
-                                w='16px'
-                              />
-                            )
-                          } else if (item === 'windows') {
-                            return (
-                              <WindowsLogo
-                                key={key}
-                                color={iconColor}
-                                h='18px'
-                                w='19px'
-                              />
-                            )
-                          }
-                        })}
-                      </Flex>
                     )
                   } else if (cell.column.Header === 'DATE') {
                     data = (
@@ -161,25 +123,36 @@ export default function DevelopmentTable (props: TableProps) {
                         {cell.value}
                       </Text>
                     )
-                  } else if (cell.column.Header === 'PROGRESS') {
+                  } else if (cell.column.Header === 'STATUS') {
+                    let color = statusColorActive
+                    switch (cell.value) {
+                      case "Resolved":
+                        color = statusColorResolved;
+                        break;
+                      case "Pending":
+                        color = statusColorPending;
+                        break;
+                      case "Active":
+                        color = statusColorActive;
+                        break;
+                      default:
+                        color = textColor;
+                    }
                     data = (
-                      <Flex align='center'>
-                        <Text
-                          me='10px'
-                          color={textColor}
-                          fontSize='sm'
-                          fontWeight='700'
-                        >
-                          {cell.value}%
-                        </Text>
-                        <Progress
-                          variant='table'
-                          colorScheme='brandScheme'
-                          h='8px'
-                          w='63px'
-                          value={cell.value}
-                        />
-                      </Flex>
+                      <Text
+                        me='10px'
+                        color={color}
+                        fontSize='sm'
+                        fontWeight='700'
+                      >
+                        {cell.value}
+                      </Text>
+                    )
+                  } else {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
                     )
                   }
                   return (

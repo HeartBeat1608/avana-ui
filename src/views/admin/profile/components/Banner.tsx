@@ -3,14 +3,11 @@ import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import Card from 'components/card/Card'
 import { NextAvatar } from 'components/image/Avatar'
 
-export default function Banner (props: {
-  banner: string
+export default function Banner(props: {
+  banner: any
   avatar: string
   name: string
   job: string
-  posts: number | string
-  followers: number | string
-  following: number | string
   [x: string]: any
 }) {
   const {
@@ -18,9 +15,6 @@ export default function Banner (props: {
     avatar,
     name,
     job,
-    posts,
-    followers,
-    following,
     ...rest
   } = props
   // Chakra Color Mode
@@ -30,14 +24,18 @@ export default function Banner (props: {
     'white !important',
     '#111C44 !important'
   )
+
+  console.log(banner, avatar)
+
   return (
     <Card mb={{ base: '0px', lg: '20px' }} alignItems='center' {...rest}>
-      <Box
-        bg={`url(${banner})`}
-        bgSize='cover'
-        borderRadius='16px'
+      <NextAvatar
+        mx='auto'
+        src={banner}
+        objectFit="cover"
         h='131px'
         w='100%'
+        style={{ borderRadius: '12px' }}
       />
       <NextAvatar
         mx='auto'
@@ -45,7 +43,7 @@ export default function Banner (props: {
         h='87px'
         w='87px'
         mt='-43px'
-        border='4px solid'
+        border='6px solid'
         borderColor={borderColor}
       />
       <Text color={textColorPrimary} fontWeight='bold' fontSize='xl' mt='10px'>
@@ -54,32 +52,6 @@ export default function Banner (props: {
       <Text color={textColorSecondary} fontSize='sm'>
         {job}
       </Text>
-      <Flex w='max-content' mx='auto' mt='26px'>
-        <Flex mx='auto' me='60px' alignItems='center' flexDirection='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {posts}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Posts
-          </Text>
-        </Flex>
-        <Flex mx='auto' me='60px' alignItems='center' flexDirection='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {followers}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Followers
-          </Text>
-        </Flex>
-        <Flex mx='auto' alignItems='center' flexDirection='column'>
-          <Text color={textColorPrimary} fontSize='2xl' fontWeight='700'>
-            {following}
-          </Text>
-          <Text color={textColorSecondary} fontSize='sm' fontWeight='400'>
-            Following
-          </Text>
-        </Flex>
-      </Flex>
     </Card>
   )
 }

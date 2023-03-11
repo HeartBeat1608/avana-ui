@@ -33,7 +33,7 @@ export const columnsDataComplex = [
     accessor: "date",
   },
   {
-    Header: "PROGRESS",
+    Header: "FOLLOW UP",
     accessor: "progress",
   },
 ];
@@ -41,6 +41,7 @@ export const columnsDataComplex = [
 export type ColumnData = Column[];
 
 export type TableData = Column<{
+  id?: string;
   name: (string | boolean)[];
   date: string;
   progress: number;
